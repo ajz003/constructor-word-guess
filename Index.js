@@ -9,8 +9,6 @@ var arrOfWords = ["abruptly", "absurd", "abyss", "affix", "askew", "avenue", "aw
 
 var random = arrOfWords[Math.floor((Math.random() * arrOfWords.length) + 1)]
 
-console.log(random);
-
 var hangman = new Word(random);
 var display;
 
@@ -31,7 +29,6 @@ function init() {
 function reset() {
 
     random = arrOfWords[Math.floor((Math.random() * arrOfWords.length) + 1)];
-    console.log(random);
     hangman = new Word(random);
     hangman.addLetters();
     display = hangman.wordStr();
@@ -52,7 +49,7 @@ function game() {
         console.log("--------------------------------")
         reset();
         console.log(display);
-        console.log(guessesLeft + " guesses left!!!");
+        console.log("\r\n"+guessesLeft + " guesses left!!!\r\n");
     }
 
     inquirer
@@ -66,15 +63,14 @@ function game() {
             let userGuess = res.guess;
 
             if (guessedArr.includes(userGuess)) {
-                console.log("Already guessed!");
+                console.log("\r\nAlready guessed!\r\n");
             }
             if (letterArr.includes(userGuess) && !guessedArr.includes(userGuess)) {
-                console.log("Correct!")
+                console.log("\r\nCorrect!\r\n")
                 letterArr = letterArr.filter(a => a !== userGuess)
                 guessedArr.push(userGuess);
-                console.log(letterArr);
             } else if (!guessedArr.includes(userGuess) && !letterArr.includes(userGuess)) {
-                console.log("Incorrect!");
+                console.log("\r\nIncorrect!");
                 guessedArr.push(userGuess);
                 guessesLeft--;
                 if (guessesLeft === 0) {
@@ -89,7 +85,7 @@ function game() {
             hangman.guesser(userGuess);
             display = hangman.wordStr();
             console.log(display);
-            console.log(guessesLeft + " guesses left!!!");
+            console.log("\r\n"+guessesLeft + " guesses left!!!\r\n");
 
             game();
 

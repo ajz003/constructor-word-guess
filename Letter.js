@@ -16,9 +16,9 @@ function Letter(letter) {
     this.guessed = false;
     this.fill = function () {
         if (this.guessed === true) {
-            return this.letter;
+            return this.letter + " "
         } else if(this.guessed === false) {
-            return "_";
+            return "_ ";
         }
     }
     this.check = function(letter) {
