@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ajz003/constructor-word-guess/issues"
   },
-  "homepage": "https://github.com/ajz003/constructor-word-guess#readme"
+  "homepage": "https://github.com/ajz003/constructor-word-guess#readme",
+  "dependencies": {
+    "inquirer": "^6.2.0"
+  }
 }
