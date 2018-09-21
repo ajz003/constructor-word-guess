@@ -49,7 +49,7 @@ function game() {
         console.log("--------------------------------")
         reset();
         console.log(display);
-        console.log("\r\n"+guessesLeft + " guesses left!!!\r\n");
+        console.log("\r\n" + guessesLeft + " guesses left!!!\r\n");
     }
 
     inquirer
@@ -61,31 +61,42 @@ function game() {
         .then(res => {
 
             let userGuess = res.guess;
+            let tester = /^[A-Za-z]+$/;
 
-            if (guessedArr.includes(userGuess)) {
-                console.log("\r\nAlready guessed!\r\n");
-            }
-            if (letterArr.includes(userGuess) && !guessedArr.includes(userGuess)) {
-                console.log("\r\nCorrect!\r\n")
-                letterArr = letterArr.filter(a => a !== userGuess)
-                guessedArr.push(userGuess);
-            } else if (!guessedArr.includes(userGuess) && !letterArr.includes(userGuess)) {
-                console.log("\r\nIncorrect!");
-                guessedArr.push(userGuess);
-                guessesLeft--;
-                if (guessesLeft === 0) {
-                  console.log("--------------------------------")
-                    console.log("The word was " + random + ". Next word!");
-                    console.log("--------------------------------")
-                    reset();
+            if (userGuess.match(tester) && userGuess.length === 1) {
+
+                if (guessedArr.includes(userGuess)) {
+                    console.log("\r\nAlready guessed!\r\n");
+                }
+                if (letterArr.includes(userGuess) && !guessedArr.includes(userGuess)) {
+                    console.log("\r\nCorrect!\r\n")
+                    letterArr = letterArr.filter(a => a !== userGuess)
+                    guessedArr.push(userGuess);
+                } else if (!guessedArr.includes(userGuess) && !letterArr.includes(userGuess)) {
+                    console.log("\r\nIncorrect!");
+                    guessedArr.push(userGuess);
+                    guessesLeft--;
+                    if (guessesLeft === 0) {
+                        console.log("--------------------------------")
+                        console.log("The word was " + random + ". Next word!");
+                        console.log("--------------------------------")
+                        reset();
+                        display = hangman.wordStr();
+                        console.log(display);
+                        console.log("\r\n" + guessesLeft + " guesses left!!!\r\n");
+                        game();
+                        return;
+                    }
+
                 }
 
+                hangman.guesser(userGuess);
+            } else if (!userGuess.match(tester) || userGuess.length !== 1) {
+                console.log("\r\nInvalid input.\r\n")
             }
-
-            hangman.guesser(userGuess);
             display = hangman.wordStr();
             console.log(display);
-            console.log("\r\n"+guessesLeft + " guesses left!!!\r\n");
+            console.log("\r\n" + guessesLeft + " guesses left!!!\r\n");
 
             game();
 
